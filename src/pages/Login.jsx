@@ -24,6 +24,7 @@ export class Login extends Component {
     const data = await response.json();
 
     this.saveLocalStorage(data.token);
+    console.log(data);
 
     history.push('/game');
 
