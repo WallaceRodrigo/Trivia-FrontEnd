@@ -1,7 +1,9 @@
-import { SAVETOKEN } from '../actions';
+import { SAVETOKEN, SAVE_INFOS } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
+  name: '',
+  gravatarEmail: '',
 };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +12,12 @@ const loginReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       token: action.token,
+    };
+  case SAVE_INFOS:
+    return {
+      ...state,
+      name: action.name,
+      gravatarEmail: action.email,
     };
   default:
     return state;
