@@ -31,6 +31,7 @@ export class Login extends Component {
   };
 
   render() {
+    const { history } = this.props;
     const { loginInput, nameInput } = this.state;
     const buttonValidation = loginInput.length > 1 && nameInput.length > 1;
 
@@ -62,6 +63,12 @@ export class Login extends Component {
           onClick={ () => this.handleClick() }
         >
           Play
+        </button>
+        <button
+          data-testid="btn-settings"
+          onClick={ () => history.push('/settings') }
+        >
+          Settings
         </button>
       </div>
     );
