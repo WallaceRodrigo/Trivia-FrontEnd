@@ -26,7 +26,6 @@ class Login extends Component {
     const data = await response.json();
 
     this.saveLocalStorage(data.token);
-    console.log(data);
 
     dispatch(saveInfos(nameInput, loginInput));
     history.push('/game');
