@@ -37,6 +37,17 @@ class Questions extends Component {
     }
   };
 
+  questionButton = () => {
+    const btnCorrect = document.querySelector('.correct');
+    const btnsInorrect = document.querySelectorAll('.incorrect');
+
+    btnCorrect.style.border = '3px solid rgb(6, 240, 15)';
+    btnsInorrect.forEach((el) => {
+      el.style.backgroundColor = 'red';
+      el.style.border = '3px solid red';
+    });
+  };
+
   render() {
     const { results, array, loading } = this.state;
     const correctAnswer = results[arrayIndex].correct_answer;
@@ -53,22 +64,22 @@ class Questions extends Component {
               <h2 data-testid="question-text">
                 {results[arrayIndex].question}
               </h2>
-              {
-                array.map((el, index) => (
-                  <button
-                    key={ index }
-                    data-testid="answer-options"
-                  >
-                    <p
+              <div data-testid="answer-options">
+                {
+                  array.map((el, index) => (
+                    <button
+                      key={ index }
                       data-testid={
                         el === correctAnswer ? 'correct-answer' : `wrong-answer-${index}`
                       }
+                      onClick={ this.questionButton }
+                      className={ el === correctAnswer ? 'correct' : 'incorrect' }
                     >
                       { el }
-                    </p>
-                  </button>
-                ))
-              }
+                    </button>
+                  ))
+                }
+              </div>
             </div>
           )
         }
