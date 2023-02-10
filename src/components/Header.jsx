@@ -7,7 +7,6 @@ class Header extends Component {
   render() {
     const { name, gravatarEmail } = this.props;
     const HashEmail = md5(gravatarEmail).toString();
-    console.log(gravatarEmail, this.props);
     return (
       <div>
         <img src={ `https://www.gravatar.com/avatar/${HashEmail}` } data-testid="header-profile-picture" alt="gravatar" />

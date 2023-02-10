@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Questions from '../components/Questions';
 
@@ -24,7 +25,6 @@ class Game extends Component {
           localStorage.removeItem('token');
         }
         this.setState({ data });
-        console.log(data);
       });
   };
 
@@ -41,5 +41,11 @@ class Game extends Component {
     );
   }
 }
+
+Game.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default Game;
