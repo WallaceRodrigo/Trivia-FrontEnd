@@ -10,7 +10,7 @@ export default function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" render={ (p) => <Login { ...p } /> } />
-        <Route exact path="/game" component={ Game } />
+        <Route exact path="/game" render={ (p) => <Game { ...p } /> } />
         <Route exact path="/settings" component={ Settings } />
       </Switch>
     </div>
