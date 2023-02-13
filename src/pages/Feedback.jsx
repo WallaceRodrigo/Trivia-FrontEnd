@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 class Feedback extends Component {
   render() {
-    const { name, gravatarEmail, score, assertions } = this.props;
+    const { name, gravatarEmail, score, assertions, history } = this.props;
     const HashEmail = md5(gravatarEmail).toString();
     const three = 3;
     return (
@@ -21,6 +21,12 @@ class Feedback extends Component {
         </h2>
         <h2 data-testid="feedback-total-score">{ score }</h2>
         <h2 data-testid="feedback-total-question">{ assertions }</h2>
+        <button
+          data-testid="btn-play-again"
+          onClick={ () => history.push('/') }
+        >
+          Play Again
+        </button>
       </div>
     );
   }
@@ -31,6 +37,9 @@ Feedback.propTypes = {
   gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
