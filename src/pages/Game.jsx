@@ -17,24 +17,30 @@ class Game extends Component {
 
   // Iniciando requisito 8
   handleTimer = () => {
+    this.setState({ timer: 30 });
     const MIN_INTERVAL = 1000;
     const MIN_TIMEOUT = 30000;
     const TIMER_BUTTON = 5000;
+
     const interval = setInterval(() => {
       this.setState((initial) => ({
         timer: initial.timer - 1,
       }));
     }, MIN_INTERVAL);
+
     setTimeout(() => this
       .setState({
         isDisabled: false,
       }), TIMER_BUTTON);
+
     setTimeout(() => {
       clearInterval(interval);
       this.setState({
         isDisabled: true,
       });
     }, MIN_TIMEOUT);
+
+    return interval;
   };
 
   triviaAPI = () => {
@@ -55,11 +61,18 @@ class Game extends Component {
 
   render() {
     const { data, isDisabled, timer } = this.state;
+    const { history } = this.props;
     return (
       <div>
         <Header />
         <div>
-          <Questions data={ data } isDisabled={ isDisabled } timer={ timer } />
+          <Questions
+            data={ data }
+            isDisabled={ isDisabled }
+            timer={ timer }
+            history={ history }
+            handleTimer={ this.handleTimer }
+          />
         </div>
 
       </div>

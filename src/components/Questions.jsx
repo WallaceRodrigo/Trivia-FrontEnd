@@ -89,8 +89,12 @@ class Questions extends Component {
 
     const four = 4;
     if (arrayIndex >= four) {
-      this.setState({ arrayIndex: four });
+      const { history } = this.props;
+      history.push('/');
     }
+
+    const { handleTimer } = this.props;
+    handleTimer();
   };
 
   render() {
