@@ -6,11 +6,36 @@ import Questions from '../components/Questions';
 class Game extends Component {
   state = {
     data: '',
+    timer: 30,
+    isDisabled: true,
   };
 
   componentDidMount() {
     this.triviaAPI();
+    this.handleTimer();
   }
+
+  // Iniciando requisito 8
+  handleTimer = () => {
+    const MIN_INTERVAL = 1000;
+    const MIN_TIMEOUT = 30000;
+    const TIMER_BUTTON = 5000;
+    const interval = setInterval(() => {
+      this.setState((initial) => ({
+        timer: initial.timer - 1,
+      }));
+    }, MIN_INTERVAL);
+    setTimeout(() => this
+      .setState({
+        isDisabled: false,
+      }), TIMER_BUTTON);
+    setTimeout(() => {
+      clearInterval(interval);
+      this.setState({
+        isDisabled: true,
+      });
+    }, MIN_TIMEOUT);
+  };
 
   triviaAPI = () => {
     const { history } = this.props;
@@ -29,12 +54,12 @@ class Game extends Component {
   };
 
   render() {
-    const { data } = this.state;
+    const { data, isDisabled } = this.state;
     return (
       <div>
         <Header />
         <div>
-          <Questions data={ data } />
+          <Questions data={ data } isDisabled={ isDisabled } />
         </div>
 
       </div>

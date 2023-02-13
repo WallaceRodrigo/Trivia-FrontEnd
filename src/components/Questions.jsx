@@ -9,6 +9,7 @@ class Questions extends Component {
     results: [{
       category: '',
       question: '',
+      isDisabled: false,
     }],
     loading: true,
   };
@@ -49,6 +50,7 @@ class Questions extends Component {
   };
 
   render() {
+    const { isDisabled } = this.props;
     const { results, array, loading } = this.state;
     const correctAnswer = results[arrayIndex].correct_answer;
     return (
@@ -69,6 +71,7 @@ class Questions extends Component {
                   array.map((el, index) => (
                     <button
                       key={ index }
+                      disabled={ isDisabled }
                       data-testid={
                         el === correctAnswer ? 'correct-answer' : `wrong-answer-${index}`
                       }
