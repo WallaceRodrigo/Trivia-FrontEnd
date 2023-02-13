@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   name: '',
   gravatarEmail: '',
   score: 0,
-  corrects: 0,
+  assertions: 0,
 };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
@@ -24,12 +24,12 @@ const loginReducer = (state = INITIAL_STATE, action) => {
   case CALC_SCORE:
     return {
       ...state,
-      score: action.score,
+      score: state.score + action.score,
     };
   case SAVE_CORRECTS:
     return {
       ...state,
-      corrects: state.corrects + 1,
+      assertions: state.assertions + 1,
     };
   default:
     return state;
