@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { calcScore } from '../redux/actions';
 
-const arrayIndex = 0;
 class Questions extends Component {
   state = {
     array: [],
@@ -14,6 +13,8 @@ class Questions extends Component {
       isDisabled: false,
     }],
     loading: true,
+    nextButton: false,
+    arrayIndex: 0,
   };
 
   componentDidUpdate() {
@@ -23,6 +24,7 @@ class Questions extends Component {
   buttonQuestion = () => {
     const number = 0.5;
     const { data: { results } } = this.props;
+    const { arrayIndex } = this.state;
     const { correct_answer: correct, incorrect_answers: incorrect } = results[arrayIndex];
 
     let answers = [];
@@ -53,10 +55,12 @@ class Questions extends Component {
     if (target.className === 'correct') {
       this.calcScore();
     }
+
+    this.setState({ nextButton: true });
   };
 
   calcScore = () => {
-    const { results } = this.state;
+    const { results, arrayIndex } = this.state;
     const { difficulty } = results[arrayIndex];
     const { timer, dispatch } = this.props;
 
@@ -71,9 +75,27 @@ class Questions extends Component {
     dispatch(calcScore(score));
   };
 
+  handleNextButton = () => {
+    const { arrayIndex } = this.state;
+
+    this.setState({
+      arrayIndex: arrayIndex + 1,
+      loading: true,
+      ifValidation: true,
+      nextButton: false,
+    });
+
+    this.buttonQuestion();
+
+    const four = 4;
+    if (arrayIndex >= four) {
+      this.setState({ arrayIndex: four });
+    }
+  };
+
   render() {
     const { isDisabled } = this.props;
-    const { results, array, loading } = this.state;
+    const { results, array, loading, nextButton, arrayIndex } = this.state;
     const correctAnswer = results[arrayIndex].correct_answer;
     return (
       <div>
@@ -107,6 +129,17 @@ class Questions extends Component {
               </div>
             </div>
           )
+        }
+        {
+          nextButton ? (
+            <button
+              data-testid="btn-next"
+              onClick={ () => this.handleNextButton() }
+            >
+              Next
+            </button>
+          )
+            : ''
         }
       </div>
     );
