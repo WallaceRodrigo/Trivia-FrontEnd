@@ -54,12 +54,12 @@ class Game extends Component {
   };
 
   render() {
-    const { data, isDisabled } = this.state;
+    const { data, isDisabled, timer } = this.state;
     return (
       <div>
         <Header />
         <div>
-          <Questions data={ data } isDisabled={ isDisabled } />
+          <Questions data={ data } isDisabled={ isDisabled } timer={ timer } />
         </div>
 
       </div>
