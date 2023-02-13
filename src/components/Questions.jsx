@@ -72,6 +72,7 @@ class Questions extends Component {
 
     const ten = 10;
     const score = ten + (timer * convertedDifficulty);
+    console.log(timer);
     dispatch(calcScore(score));
   };
 

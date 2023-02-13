@@ -8,6 +8,7 @@ class Game extends Component {
     data: '',
     timer: 30,
     isDisabled: true,
+    intervalId: 0,
   };
 
   componentDidMount() {
@@ -17,14 +18,21 @@ class Game extends Component {
 
   // Iniciando requisito 8
   handleTimer = () => {
-    this.setState({ timer: 30 });
     const MIN_INTERVAL = 1000;
     const MIN_TIMEOUT = 30000;
     const TIMER_BUTTON = 5000;
 
+    const { intervalId } = this.state;
+
+    if (intervalId !== 0) {
+      clearInterval(intervalId);
+      this.setState({ timer: 30 });
+    }
+
     const interval = setInterval(() => {
       this.setState((initial) => ({
         timer: initial.timer - 1,
+        intervalId: interval,
       }));
     }, MIN_INTERVAL);
 
@@ -39,8 +47,6 @@ class Game extends Component {
         isDisabled: true,
       });
     }, MIN_TIMEOUT);
-
-    return interval;
   };
 
   triviaAPI = () => {

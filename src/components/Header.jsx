@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { name, gravatarEmail } = this.props;
+    const { name, gravatarEmail, score } = this.props;
     const HashEmail = md5(gravatarEmail).toString();
     return (
       <div>
         <img src={ `https://www.gravatar.com/avatar/${HashEmail}` } data-testid="header-profile-picture" alt="gravatar" />
         <h1 data-testid="header-player-name">{ name }</h1>
-        <h1 data-testid="header-score">0</h1>
+        <h1 data-testid="header-score">{ score }</h1>
       </div>
     );
   }
@@ -20,7 +20,7 @@ class Header extends Component {
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
-  /* score: PropTypes.number.isRequired, */
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
