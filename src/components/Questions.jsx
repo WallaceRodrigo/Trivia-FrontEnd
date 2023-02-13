@@ -91,7 +91,7 @@ class Questions extends Component {
     const four = 4;
     if (arrayIndex >= four) {
       const { history } = this.props;
-      history.push('/');
+      history.push('/feedback');
     }
 
     const { handleTimer } = this.props;
