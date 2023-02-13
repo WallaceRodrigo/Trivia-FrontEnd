@@ -80,12 +80,6 @@ class Game extends Component {
             handleTimer={ this.handleTimer }
           />
         </div>
-        <button
-          data-testid="btn-play-again"
-          onClick={ () => history.push('/') }
-        >
-          Play Again
-        </button>
       </div>
     );
   }
