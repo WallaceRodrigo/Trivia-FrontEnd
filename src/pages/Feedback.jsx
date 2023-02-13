@@ -4,6 +4,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Feedback extends Component {
+  componentDidMount() {
+    const { name, gravatarEmail, score } = this.props;
+    const HashEmail = md5(gravatarEmail).toString();
+    const gravatarImg = `https://www.gravatar.com/avatar/${HashEmail}`;
+    const rankingLocalStorage = { name, score, picture: gravatarImg };
+
+    const ranking = localStorage.getItem('ranking');
+    const rankingValidation = ranking === null ? [] : JSON.parse(ranking);
+
+    rankingValidation.push(rankingLocalStorage);
+
+    localStorage.setItem('ranking', JSON.stringify(rankingValidation));
+  }
+
   render() {
     const { name, gravatarEmail, score, assertions, history } = this.props;
     const HashEmail = md5(gravatarEmail).toString();
