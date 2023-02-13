@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { calcScore } from '../redux/actions';
+import { calcScore, saveCorrects } from '../redux/actions';
 
 class Questions extends Component {
   state = {
@@ -44,16 +44,21 @@ class Questions extends Component {
 
   questionButton = ({ target }) => {
     const btnCorrect = document.querySelector('.correct');
-    const btnsInorrect = document.querySelectorAll('.incorrect');
+    const btnsIncorrect = document.querySelectorAll('.incorrect');
 
     btnCorrect.style.border = '3px solid rgb(6, 240, 15)';
-    btnsInorrect.forEach((el) => {
+    btnsIncorrect.forEach((el) => {
       el.style.backgroundColor = 'red';
       el.style.border = '3px solid red';
     });
 
     if (target.className === 'correct') {
       this.calcScore();
+    }
+
+    if (target.className === 'correct') {
+      const { dispatch } = this.props;
+      dispatch(saveCorrects());
     }
 
     this.setState({ nextButton: true });
@@ -72,7 +77,6 @@ class Questions extends Component {
 
     const ten = 10;
     const score = ten + (timer * convertedDifficulty);
-    console.log(timer);
     dispatch(calcScore(score));
   };
 

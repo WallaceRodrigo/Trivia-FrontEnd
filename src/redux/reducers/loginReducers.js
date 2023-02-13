@@ -1,10 +1,11 @@
-import { CALC_SCORE, SAVETOKEN, SAVE_INFOS } from '../actions';
+import { CALC_SCORE, SAVETOKEN, SAVE_CORRECTS, SAVE_INFOS } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
   name: '',
   gravatarEmail: '',
   score: 0,
+  corrects: 0,
 };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
@@ -24,6 +25,11 @@ const loginReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: action.score,
+    };
+  case SAVE_CORRECTS:
+    return {
+      ...state,
+      corrects: state.corrects + 1,
     };
   default:
     return state;
