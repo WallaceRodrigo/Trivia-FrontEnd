@@ -116,7 +116,6 @@ class Questions extends Component {
     const { results, array, loading, nextButton, arrayIndex } = this.state;
     const correctAnswer = results[arrayIndex].correct_answer;
     const answers = [letterA, letterB, letterC, letterD];
-    console.log(results.map((el) => el.correct_answer));
     return (
       <div className="questionsDiv">
         {
