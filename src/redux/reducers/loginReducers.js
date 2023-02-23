@@ -25,6 +25,7 @@ const loginReducer = (state = INITIAL_STATE, action) => {
       name: action.name,
       gravatarEmail: action.email,
       score: 0,
+      assertions: 0,
     };
   case CALC_SCORE:
     return {
