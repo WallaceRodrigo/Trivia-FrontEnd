@@ -64,11 +64,8 @@ class Questions extends Component {
       el.style.boxShadow = '0px 0px 20px #B83B3B';
     });
 
-    if (target.className === 'correct') {
+    if (target.className === 'correct' || target.className === 'correctEl') {
       this.calcScore();
-    }
-
-    if (target.className === 'correct') {
       const { dispatch } = this.props;
       dispatch(saveCorrects());
     }
@@ -119,6 +116,7 @@ class Questions extends Component {
     const { results, array, loading, nextButton, arrayIndex } = this.state;
     const correctAnswer = results[arrayIndex].correct_answer;
     const answers = [letterA, letterB, letterC, letterD];
+    console.log(results.map((el) => el.correct_answer));
     return (
       <div className="questionsDiv">
         {
@@ -159,9 +157,9 @@ class Questions extends Component {
                         el === correctAnswer
                           ? <BsCheckCircleFill style={ { fontSize: '46px', color: '#2FC18C', margin: '0px 10px' } } />
                           : <BsFillXCircleFill style={ { fontSize: '46px', color: '#EA5D5D', margin: '0px 10px' } } />
-                      ) : <img src={ answers[index] } alt="letters" className="letters" />
+                      ) : <img src={ answers[index] } alt="letters" className={ el === correctAnswer ? 'correctEl' && 'letters' : 'incorrectEl' && 'letters' } />
                     }
-                    <p>{ el }</p>
+                    <p className={ el === correctAnswer ? 'correctEl' : 'incorrectEl' }>{ el }</p>
                   </button>
                 ))
               }
