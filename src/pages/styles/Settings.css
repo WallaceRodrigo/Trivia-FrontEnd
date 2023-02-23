@@ -1,0 +1,39 @@
+.settingsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.settingsDiv {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  width: 489px;
+  height: 488px;
+  padding: 10px;
+  box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.settingsDiv h1 {
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #3C1B7A;
+}
+
+.settingsDiv button {
+  position: relative;
+  top: 100px;
+  border: none;
+}
+
+.settingsTriviaLogo {
+  position: absolute;
+  width: 200px;
+  margin-bottom: 500px;
+}

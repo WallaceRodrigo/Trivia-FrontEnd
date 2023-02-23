@@ -1,7 +1,9 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './styles/Feedback.css';
 
 class Feedback extends Component {
   componentDidMount() {
@@ -23,30 +25,37 @@ class Feedback extends Component {
     const HashEmail = md5(gravatarEmail).toString();
     const three = 3;
     return (
-      <div>
-        <h1>Feedback</h1>
-        <img src={ `https://www.gravatar.com/avatar/${HashEmail}` } data-testid="header-profile-picture" alt="gravatar" />
-        <h1 data-testid="header-player-name">{ name }</h1>
-        <h1 data-testid="header-score">{ score }</h1>
-        <h2 data-testid="feedback-text">
+      <div className="feedbackContainer">
+        <div className="feedbackDiv">
+          <img
+            src={ `https://www.gravatar.com/avatar/${HashEmail}` }
+            data-testid="header-profile-picture"
+            alt="gravatar"
+            className={ assertions >= three ? 'greatImg' : 'badImg' }
+          />
           {
-            assertions >= three ? 'Well Done!' : 'Could be better...'
+            assertions >= three ? <h2 className="great">{ `Mandou bem ${name}!` }</h2>
+              : <h2 className="bad">{ `Podia ser melhor ${name}...` }</h2>
           }
-        </h2>
-        <h2 data-testid="feedback-total-score">{ score }</h2>
-        <h2 data-testid="feedback-total-question">{ assertions }</h2>
-        <button
-          data-testid="btn-play-again"
-          onClick={ () => history.push('/') }
-        >
-          Play Again
-        </button>
-        <button
-          data-testid="btn-ranking"
-          onClick={ () => history.push('/ranking') }
-        >
-          Ranking
-        </button>
+          <p data-testid="feedback-total-question">{ `Você acertou ${assertions} questões!` }</p>
+          <p data-testid="feedback-total-score">{ `Fez um total de ${score} pontos` }</p>
+        </div>
+        <div className="feedbackButtons">
+          <button
+            data-testid="btn-ranking"
+            onClick={ () => history.push('/ranking') }
+            className="rankingButton"
+          >
+            VER RANKING
+          </button>
+          <button
+            data-testid="btn-play-again"
+            onClick={ () => history.push('/') }
+            className="playAgainButton"
+          >
+            JOGAR NOVAMENTE
+          </button>
+        </div>
       </div>
     );
   }

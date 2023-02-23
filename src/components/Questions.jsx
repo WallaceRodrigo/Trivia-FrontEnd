@@ -1,7 +1,18 @@
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { IoIosTimer } from 'react-icons/io';
+import { BsCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs';
 import { calcScore, saveCorrects } from '../redux/actions';
+import './styles/questions.css';
+import letterA from '../content/letterA.svg';
+import letterB from '../content/letterB.svg';
+import letterC from '../content/letterC.svg';
+import letterD from '../content/letterD.svg';
+import triviaLogo from '../content/triviaLogo.png';
 
 class Questions extends Component {
   state = {
@@ -46,10 +57,11 @@ class Questions extends Component {
     const btnCorrect = document.querySelector('.correct');
     const btnsIncorrect = document.querySelectorAll('.incorrect');
 
-    btnCorrect.style.border = '3px solid rgb(6, 240, 15)';
+    btnCorrect.style.border = '1px solid #2FC18C';
+    btnCorrect.style.boxShadow = '0px 0px 20px #2FC18C';
     btnsIncorrect.forEach((el) => {
-      el.style.backgroundColor = 'red';
-      el.style.border = '3px solid red';
+      el.style.border = '1px solid #B83B3B';
+      el.style.boxShadow = '0px 0px 20px #B83B3B';
     });
 
     if (target.className === 'correct') {
@@ -103,52 +115,70 @@ class Questions extends Component {
   };
 
   render() {
-    const { isDisabled } = this.props;
+    const { isDisabled, timer } = this.props;
     const { results, array, loading, nextButton, arrayIndex } = this.state;
     const correctAnswer = results[arrayIndex].correct_answer;
+    const answers = [letterA, letterB, letterC, letterD];
     return (
-      <div>
+      <div className="questionsDiv">
         {
           loading ? (
             <h1>Loading...</h1>
           ) : (
-            <div>
+            <div className="questions">
+              <img src={ triviaLogo } alt="triviaLogo" className="gameTriviaLogo" />
               <h1 data-testid="question-category">
                 {results[arrayIndex].category}
               </h1>
               <h2 data-testid="question-text">
                 {results[arrayIndex].question}
               </h2>
-              <div data-testid="answer-options">
-                {
-                  array.map((el, index) => (
-                    <button
-                      key={ index }
-                      disabled={ isDisabled }
-                      data-testid={
-                        el === correctAnswer ? 'correct-answer' : `wrong-answer-${index}`
-                      }
-                      onClick={ this.questionButton }
-                      className={ el === correctAnswer ? 'correct' : 'incorrect' }
-                    >
-                      { el }
-                    </button>
-                  ))
-                }
-              </div>
+              <h3 style={ { color: 'red' } }>
+                <IoIosTimer style={ { position: 'relative', top: '3px', right: '5px' } } />
+                { `Tempo restante: ${timer}` }
+              </h3>
             </div>
           )
         }
         {
-          nextButton ? (
-            <button
-              data-testid="btn-next"
-              onClick={ () => this.handleNextButton() }
-            >
-              Next
-            </button>
-          )
-            : ''
+          !loading ? (
+            <div data-testid="answer-options" className="options">
+              {
+                array.map((el, index) => (
+                  <button
+                    key={ index }
+                    disabled={ isDisabled }
+                    data-testid={
+                      el === correctAnswer ? 'correct-answer' : `wrong-answer-${index}`
+                    }
+                    onClick={ this.questionButton }
+                    className={ el === correctAnswer ? 'correct' : 'incorrect' }
+                  >
+                    {
+                      nextButton ? (
+                        el === correctAnswer
+                          ? <BsCheckCircleFill style={ { fontSize: '46px', color: '#2FC18C', margin: '0px 10px' } } />
+                          : <BsFillXCircleFill style={ { fontSize: '46px', color: '#EA5D5D', margin: '0px 10px' } } />
+                      ) : <img src={ answers[index] } alt="letters" className="letters" />
+                    }
+                    <p>{ el }</p>
+                  </button>
+                ))
+              }
+              {
+                nextButton ? (
+                  <button
+                    data-testid="btn-next"
+                    onClick={ () => this.handleNextButton() }
+                    className="nextButton"
+                  >
+                    PROXIMA
+                  </button>
+                )
+                  : ''
+              }
+            </div>
+          ) : <div />
         }
       </div>
     );

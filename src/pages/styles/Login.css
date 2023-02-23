@@ -1,0 +1,55 @@
+.loginContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+}
+
+.loginDiv {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 333px;
+  justify-content: center;
+  width: 614px;
+}
+
+.loginDiv input {
+  border: 1px solid #e1e5eb;
+  margin: 10px 0;
+  padding: 12px 16px;
+  width: 519px;
+}
+
+.loginDiv button {
+  background-color: #2fc18c;
+  border: 1px solid #e1e5eb;
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 45px;
+  margin: 10px 0;
+  padding: 12px 16px;
+  width: 550px;
+  transition: .5s;
+}
+
+.loginDiv button:hover {
+  filter: brightness(85%);
+}
+
+.loginDiv button:active {
+  transform: scale(98%);
+}
+
+.loginDiv button:disabled {
+  filter: brightness(60%);
+}
+
+.triviaLogo {
+  margin-bottom: 20px;
+  position: relative;
+  width: 250px;
+}

@@ -69,9 +69,9 @@ class Game extends Component {
     const { data, isDisabled, timer } = this.state;
     const { history } = this.props;
     return (
-      <div>
+      <div className="gameContainer">
         <Header />
-        <div>
+        <div className="questionsContainer">
           <Questions
             data={ data }
             isDisabled={ isDisabled }
